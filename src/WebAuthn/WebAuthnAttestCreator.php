@@ -160,10 +160,10 @@ class WebAuthnAttestCreator
             $user->userEntity(),
             random_bytes($this->bytes),
             $this->parameters->all(),
-            $this->timeout,
-            $this->getExcludedCredentials($user),
             $this->criteria,
             $this->conveyance,
+            $this->getExcludedCredentials($user),
+            $this->timeout,
             $this->extensions
         );
     }
