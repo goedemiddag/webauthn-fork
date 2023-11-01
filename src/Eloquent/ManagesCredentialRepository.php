@@ -40,7 +40,7 @@ trait ManagesCredentialRepository
      */
     public function findAllForUserEntity(UserEntity $entity): array
     {
-        return static::where('user_handle', $entity->getId())->get()->map->toCredentialSource()->all();
+        return static::where('user_handle', $entity->id)->get()->map->toCredentialSource()->all();
     }
 
     /**
@@ -52,7 +52,7 @@ trait ManagesCredentialRepository
     {
         // We will only update the credential counter only if it exists.
         static::where([$this->getKeyName() => Base64Url::encode($source->getPublicKeyCredentialId())])
-            ->update(['counter' => $source->getCounter()]);
+            ->update(['counter' => $source->counter]);
     }
 
     /**
@@ -66,15 +66,15 @@ trait ManagesCredentialRepository
     {
         return ($model = new static())->fill(
             [
-                $model->getKeyName() => $source->getPublicKeyCredentialId(),
-                'user_handle' => $source->getUserHandle(),
-                'type' => $source->getType(),
-                'transports' => $source->getTransports(),
-                'attestation_type' => $source->getAttestationType(),
-                'trust_path' => $source->getTrustPath()->jsonSerialize(),
-                'aaguid' => $source->getAaguid()->toString(),
-                'public_key' => $source->getCredentialPublicKey(),
-                'counter' => $source->getCounter(),
+                $model->getKeyName() => $source->publicKeyCredentialId,
+                'user_handle' => $source->userHandle,
+                'type' => $source->type,
+                'transports' => $source->transports,
+                'attestation_type' => $source->attestationType,
+                'trust_path' => $source->trustPath->jsonSerialize(),
+                'aaguid' => (string) $source->aaguid,
+                'public_key' => $source->publicKeyCredentialId,
+                'counter' => $source->counter,
             ]
         );
     }
