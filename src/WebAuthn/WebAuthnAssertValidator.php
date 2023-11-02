@@ -177,10 +177,10 @@ class WebAuthnAssertValidator
     {
         return new RequestOptions(
             random_bytes($this->bytes),
-            $this->timeout,
-            $this->relyingParty->getId(),
+            $this->relyingParty->id,
             $user ? $user->allCredentialDescriptors() : [],
             $this->verifyLogin,
+            $this->timeout,
             $this->extensions
         );
     }
