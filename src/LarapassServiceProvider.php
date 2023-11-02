@@ -146,11 +146,10 @@ class LarapassServiceProvider extends ServiceProvider
             static function ($app) {
                 return new AuthenticatorAttestationResponseValidator(
                     $app[AttestationStatementSupportManager::class],
-                    $app[PublicKeyCredentialSourceRepository::class],
-                    $app[TokenBindingHandler::class],
+                    null,
+                    null,
                     $app[ExtensionOutputCheckerHandler::class],
                     $app[MetadataStatementRepository::class],
-                    $app['log']
                 );
             }
         );
@@ -166,12 +165,11 @@ class LarapassServiceProvider extends ServiceProvider
             AuthenticatorAssertionResponseValidator::class,
             static function ($app) {
                 return new AuthenticatorAssertionResponseValidator(
-                    $app[PublicKeyCredentialSourceRepository::class],
-                    $app[TokenBindingHandler::class],
+                    null,
+                    null,
                     $app[ExtensionOutputCheckerHandler::class],
                     $app[CoseAlgorithmManager::class],
                     $app[CounterChecker::class],
-                    $app['log']
                 );
             }
         );
