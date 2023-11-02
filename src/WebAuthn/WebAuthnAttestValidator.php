@@ -94,7 +94,7 @@ class WebAuthnAttestValidator extends WebAuthnAttestCreator
         }
 
         try {
-            $credentials = $this->loader->loadArray($data)->getResponse();
+            $credentials = $this->loader->loadArray($data)->response;
 
             if (!$credentials instanceof AuthenticatorAttestationResponse) {
                 return false;

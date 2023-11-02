@@ -14,6 +14,7 @@ use Webauthn\AuthenticatorAssertionResponseValidator;
 use Webauthn\PublicKeyCredentialLoader;
 use Webauthn\PublicKeyCredentialRequestOptions as RequestOptions;
 use Webauthn\PublicKeyCredentialRpEntity as RelyingParty;
+use Webauthn\PublicKeyCredentialSourceRepository;
 
 class WebAuthnAssertValidator
 {
@@ -209,14 +210,17 @@ class WebAuthnAssertValidator
 
         try {
             $credentials = $this->loader->loadArray($data);
-            $response = $credentials->getResponse();
+            $response = $credentials->response;
 
             if (!$response instanceof AuthenticatorAssertionResponse) {
                 return false;
             }
 
+            $publicKeyCredentialSource = app(PublicKeyCredentialSourceRepository::class);
+
+
             return $this->validator->check(
-                $credentials->getRawId(),
+                $publicKeyCredentialSource->findOneByCredentialId($credentials->id),
                 $response,
                 $this->retrieveAssertion(),
                 $this->request,
