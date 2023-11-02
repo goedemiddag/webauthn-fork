@@ -169,7 +169,7 @@ class LarapassServiceProvider extends ServiceProvider
                     null,
                     $app[ExtensionOutputCheckerHandler::class],
                     $app[CoseAlgorithmManager::class],
-                    $app[CounterChecker::class],
+                    null,
                 );
             }
         );

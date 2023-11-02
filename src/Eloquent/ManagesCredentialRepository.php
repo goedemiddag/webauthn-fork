@@ -3,6 +3,7 @@
 namespace DarkGhostHunter\Larapass\Eloquent;
 
 use Base64Url\Base64Url;
+use Symfony\Component\Uid\Uuid;
 use Webauthn\PublicKeyCredentialDescriptor as CredentialDescriptor;
 use Webauthn\PublicKeyCredentialSource as CredentialSource;
 use Webauthn\PublicKeyCredentialUserEntity as UserEntity;
@@ -92,7 +93,7 @@ trait ManagesCredentialRepository
             $this->transports->all(),
             $this->attestation_type,
             $this->trust_path,
-            $this->aaguid,
+            Uuid::fromString($this->aaguid->toString()),
             $this->public_key,
             $this->user_handle,
             $this->counter
