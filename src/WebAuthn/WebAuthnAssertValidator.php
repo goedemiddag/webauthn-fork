@@ -2,6 +2,7 @@
 
 namespace DarkGhostHunter\Larapass\WebAuthn;
 
+use DarkGhostHunter\Larapass\Eloquent\WebAuthnCredential;
 use Illuminate\Contracts\Cache\Factory as CacheFactoryContract;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
@@ -216,11 +217,10 @@ class WebAuthnAssertValidator
                 return false;
             }
 
-            $publicKeyCredentialSourceRepository = app(PublicKeyCredentialSourceRepository::class);
-
+            $publicKeyCredentialSourceRepository = WebAuthnCredential::find(['id'=> $credentials->id])->first();
 
             return $this->validator->check(
-                $publicKeyCredentialSourceRepository->findOneByCredentialId($credentials->id),
+                $publicKeyCredentialSourceRepository->toCredentialSource(),
                 $response,
                 $this->retrieveAssertion(),
                 $this->request,
