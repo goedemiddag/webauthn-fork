@@ -216,15 +216,15 @@ class WebAuthnAssertValidator
                 return false;
             }
 
-            $publicKeyCredentialSource = app(PublicKeyCredentialSourceRepository::class);
+            $publicKeyCredentialSourceRepository = app(PublicKeyCredentialSourceRepository::class);
 
 
             return $this->validator->check(
-                $publicKeyCredentialSource->findOneByCredentialId($credentials->id),
+                $publicKeyCredentialSourceRepository->findOneByCredentialId($credentials->id),
                 $response,
                 $this->retrieveAssertion(),
                 $this->request,
-                $response->getUserHandle(),
+                $response->userHandle,
                 [$this->getCurrentRpId($assertion)]
             );
         } catch (InvalidArgumentException $exception) {
