@@ -55,10 +55,8 @@ class AuthenticatorSelectionCriteria extends WebAuthnAuthenticatorSelectionCrite
             $serialied['residentKey'] = $this->residentKey;
         }
 
-        if(isset($serialied['residentKey']))
-        {
-            unset($serialied['residentKey']);
-        }
+        unset($serialied['residentKey']);
+
         return $serialied;
     }
 }
