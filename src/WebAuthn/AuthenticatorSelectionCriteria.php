@@ -40,6 +40,10 @@ class AuthenticatorSelectionCriteria extends WebAuthnAuthenticatorSelectionCrite
         return $this->residentKey;
     }
 
+    public function clearResidentKey(): void
+    {
+        $this->residentKey = null;
+    }
     /**
      * @return array<string, mixed>
      */

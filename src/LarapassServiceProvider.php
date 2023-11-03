@@ -196,9 +196,7 @@ class LarapassServiceProvider extends ServiceProvider
                     $config->get('larapass.attachment')
                 );
 
-                if ($userless = $config->get('larapass.userless')) {
-                    $selection->setResidentKey($userless);
-                }
+                $selection->clearResidentKey();
 
                 return $selection;
             }
