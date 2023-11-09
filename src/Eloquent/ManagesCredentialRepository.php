@@ -67,15 +67,15 @@ trait ManagesCredentialRepository
     {
         return ($model = new static())->fill(
             [
-                $model->getKeyName() => $source->publicKeyCredentialId,
                 'user_handle' => $source->userHandle,
                 'type' => $source->type,
                 'transports' => $source->transports,
                 'attestation_type' => $source->attestationType,
                 'trust_path' => $source->trustPath->jsonSerialize(),
                 'aaguid' => (string) $source->aaguid,
-                'public_key' => $source->publicKeyCredentialId,
+                'public_key' => $source->credentialPublicKey,
                 'counter' => $source->counter,
+                $model->getKeyName() => $source->publicKeyCredentialId,
             ]
         );
     }
